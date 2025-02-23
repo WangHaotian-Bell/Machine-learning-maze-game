@@ -52,6 +52,26 @@ class MazeGame:
         ax, ay = self.env.state
         pygame.draw.circle(self.screen, BLUE, (ay * TILE_SIZE + TILE_SIZE // 2, ax * TILE_SIZE + TILE_SIZE // 2), TILE_SIZE // 3)
 
+    def draw_parameters(self):
+        """Displays the Q-learning parameters at the bottom left of the screen."""
+        font = pygame.font.Font(None, 24)  # Default font, size 24
+        parameters = [
+            f"Alpha (Learning Rate): {self.agent.alpha}",
+            f"Gamma (Discount Factor): {self.agent.gamma}",
+            f"Epsilon (Exploration): {self.agent.epsilon}",
+            f"Grid Size: {self.env.grid_size}",
+            f"Agent Position: {self.env.state}",
+            f"Goal Position: {self.env.goal}"
+        ]
+
+        # Start position for text display (bottom-left corner)
+        x, y = 10, self.screen_size[1] - (len(parameters) * 20) - 10
+
+        for param in parameters:
+            text_surface = font.render(param, True, BLACK)  # Black text
+            self.screen.blit(text_surface, (x, y))
+            y += 20  # Move down for next line
+
     def run(self):
         """Runs the Pygame visualization."""
         running = True
@@ -60,6 +80,7 @@ class MazeGame:
         while running:
             self.screen.fill(GRAY)
             self.draw_grid()
+            self.draw_parameters()  # ✅ Display parameters on the screen
             pygame.display.flip()
             self.clock.tick(FPS)
 
