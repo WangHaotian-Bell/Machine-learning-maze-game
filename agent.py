@@ -1,17 +1,16 @@
 import numpy as np
 import random
-import pickle  # For saving and loading Q-table
+import pickle
 
 
 class QLearningAgent:
 
     def __init__(self, env, alpha=0.1, gamma=0.9, epsilon=0.1):
         self.env = env
-        self.alpha = alpha  # Learning rate
-        self.gamma = gamma  # Discount factor
-        self.epsilon = epsilon  # Exploration probability
+        self.alpha = alpha
+        self.gamma = gamma
+        self.epsilon = epsilon
 
-        # Q-table initialized to zeros: state (x, y) -> action values
         self.q_table = {}
         for x in range(env.grid_size[0]):
             for y in range(env.grid_size[1]):
@@ -19,9 +18,9 @@ class QLearningAgent:
 
     def choose_action(self, state):
         if random.uniform(0, 1) < self.epsilon:
-            return random.choice(self.env.get_action_space())  # Explore
+            return random.choice(self.env.get_action_space())
         else:
-            return max(self.q_table[state], key=self.q_table[state].get)  # Exploit
+            return max(self.q_table[state], key=self.q_table[state].get)
 
     def update_q_value(self, state, action, reward, next_state, done):
         best_next_action = max(self.q_table[next_state], key=self.q_table[next_state].get)

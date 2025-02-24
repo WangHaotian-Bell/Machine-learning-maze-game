@@ -6,7 +6,7 @@ from agent import QLearningAgent
 from gui import MazeGame
 
 
-def train_agent(env, agent, episodes=500):
+def train_agent(env, agent, episodes=1000):
 
     print("Training agent...")
     for episode in range(episodes):
@@ -34,11 +34,10 @@ def run_game(grid_size=(10, 10), start=(0, 0), goal=(9, 9), obstacles=None, trai
     agent = QLearningAgent(env)
 
     if train:
-        agent.load_q_table()  # Load Q-table if it exists
+        agent.load_q_table()
         train_agent(env, agent, episodes)
-        agent.save_q_table()  # Save after training
+        agent.save_q_table()
 
-    # Initialize Pygame visualization
     game = MazeGame(grid_size, start, goal, obstacles)
     game.run()
 
@@ -49,11 +48,9 @@ if __name__ == "__main__":
     parser.add_argument("--episodes", type=int, default=500, help="Number of training episodes")
     args = parser.parse_args()
 
-    # Example maze setup
     grid_size = (10, 10)
     start = (0, 0)
     goal = (9, 9)
     obstacles = [(1, 3),(4, 7),(2, 5),(7, 1),(3, 9),(6, 2),(8, 4),(9, 6),(5, 8),(3, 1),(7, 7),(2, 8),(1, 4),(6, 3),(4, 5),(9, 2),(8, 7),(5, 1),(3, 6),(7, 9),(6, 9)]
 
-    # Run the game with or without training
     run_game(grid_size, start, goal, obstacles, train=args.train, episodes=args.episodes)

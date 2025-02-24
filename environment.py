@@ -10,13 +10,12 @@ class MazeEnv:
         self.action_space = ['up', 'down', 'left', 'right']
         self.num_actions = len(self.action_space)
 
-        # Initialize the grid and set obstacles
         self.obstacles = obstacles if obstacles else []
         self.grid = np.zeros(grid_size)
         for obs in self.obstacles:
-            self.grid[obs] = -1  # Mark obstacles
+            self.grid[obs] = -1
 
-        self.grid[goal] = 1  # Goal position has a positive reward
+        self.grid[goal] = 1
 
     def reset(self):
         self.state = self.start
@@ -35,14 +34,13 @@ class MazeEnv:
         else:
             raise ValueError("Invalid action.")
 
-        # Check if new state is an obstacle
         if new_state in self.obstacles:
             new_state = self.state
             reward = -1
-            done = False  # Ensure 'done' is explicitly set
+            done = False
         elif new_state == self.goal:
             reward = 10
-            done = True  # Ensure episode ends at the goal
+            done = True
         else:
             reward = -0.1
             done = False
@@ -53,7 +51,7 @@ class MazeEnv:
     def render(self):
         grid_display = np.copy(self.grid)
         x, y = self.state
-        grid_display[x, y] = 2  # Represent agent as '2'
+        grid_display[x, y] = 2
 
         print("\nMaze Grid:")
         for row in grid_display:
