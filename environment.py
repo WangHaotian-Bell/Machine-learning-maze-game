@@ -2,10 +2,6 @@ import numpy as np
 
 
 class MazeEnv:
-    """
-    A Gym-like interface for the Q-learning maze environment.
-    """
-
     def __init__(self, grid_size=(10, 10), start=(0, 0), goal=(9, 9), obstacles=None):
         self.grid_size = grid_size
         self.start = start
@@ -23,16 +19,10 @@ class MazeEnv:
         self.grid[goal] = 1  # Goal position has a positive reward
 
     def reset(self):
-        """
-        Resets the environment to the initial state.
-        """
         self.state = self.start
         return self.state
 
     def step(self, action):
-        """
-        Takes an action and returns (next_state, reward, done).
-        """
         x, y = self.state
         if action == 'up':
             new_state = (max(x - 1, 0), y)
@@ -61,9 +51,6 @@ class MazeEnv:
         return new_state, reward, done
 
     def render(self):
-        """
-        Prints the maze grid with the agent, obstacles, and goal.
-        """
         grid_display = np.copy(self.grid)
         x, y = self.state
         grid_display[x, y] = 2  # Represent agent as '2'
@@ -74,7 +61,4 @@ class MazeEnv:
         print()
 
     def get_action_space(self):
-        """
-        Returns the available action space.
-        """
         return self.action_space

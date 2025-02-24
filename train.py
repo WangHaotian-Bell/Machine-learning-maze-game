@@ -3,7 +3,7 @@ from agent import QLearningAgent
 
 
 def train_agent(env, agent, episodes=1000):
-    agent.load_q_table()  # Load existing Q-table (if available)
+    agent.load_q_table()
 
     for episode in range(episodes):
         state = env.reset()

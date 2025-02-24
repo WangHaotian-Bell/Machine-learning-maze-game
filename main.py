@@ -7,13 +7,7 @@ from gui import MazeGame
 
 
 def train_agent(env, agent, episodes=500):
-    """
-    Trains the Q-learning agent in the given maze environment.
 
-    :param env: The MazeEnv instance
-    :param agent: The QLearningAgent instance
-    :param episodes: Number of training episodes
-    """
     print("Training agent...")
     for episode in range(episodes):
         state = env.reset()
@@ -35,16 +29,7 @@ def train_agent(env, agent, episodes=500):
 
 
 def run_game(grid_size=(10, 10), start=(0, 0), goal=(9, 9), obstacles=None, train=False, episodes=500):
-    """
-    Runs the game in either training or inference mode.
 
-    :param grid_size: Tuple defining the maze dimensions
-    :param start: Start position of the agent
-    :param goal: Goal position
-    :param obstacles: List of obstacle positions
-    :param train: If True, train the agent before running the game
-    :param episodes: Number of training episodes
-    """
     env = MazeEnv(grid_size, start, goal, obstacles)
     agent = QLearningAgent(env)
 
